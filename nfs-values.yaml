@@ -1,3 +1,0 @@
-storageClass:
-  defaultClass: true
-  name: nfs
