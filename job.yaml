@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: l6-job2
+spec:
+  template:
+    spec:
+      containers:
+      - name: copy-content
+        image: busybox
+        command: ["/bin/sh", "-c"]
+        args:
+          - echo "Hello!" > /mnt/nfs/index.html;
+        volumeMounts:
+        - name: l6-content2
+          mountPath: /mnt/nfs
+      restartPolicy: OnFailure
+      volumes:
+      - name: l6-content2
+        persistentVolumeClaim:
+          claimName: l6-pvc

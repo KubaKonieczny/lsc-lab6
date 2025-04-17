@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: l6-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: l6-deployment
+  template:
+    metadata:
+      labels:
+        app: l6-deployment
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        volumeMounts:
+        - name: l6-content
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: l6-content
+        persistentVolumeClaim:
+          claimName: l6-pvc
